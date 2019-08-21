@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Wall Page</title>
+    </head>
+    <body>
+       @model WallViewModel
+        <a href="/Logout">Log Off</a>
+        <h1>CodingDojo Wall</h1>
+        <h4>Welcome @Model.User.FirstName</h4>
+
+        <div class="message">
+            <form asp-action="CreateMessage" asp-controller="Home" method="POST">
+                <span asp-validation-for="Message.messageContent"></span>
+                <label asp-for="Message.messageContent">Post your Message</label>
+                <br>
+                <textarea asp-for="Message.messageContent"></textarea>
+                <br>
+                <input value="Post Message" type="Submit">
+            </form>
+        </div>
+
+        <div class="message">
+            @{
+                foreach(Message message in Model.Messages)
+                {
+                    <h5>@message.User.FirstName @message.User.LastName - @message.CreatedAt.ToString("MMM d, yyyy")</h5>
+                    <p>@message.messageContent</p>
+                    @if(message.User == Model.User && message.CreatedAt.AddMinutes(30) > DateTime.Now)
+                    {
+                        <a href="/message/delete/@message.MessageId">delete message</a>
+                    }
+                    @foreach(Comment comment in message.Comments)
+                    {
+                        <div class="formbox">
+                            <h5>@comment.User.FirstName @comment.User.LastName - @comment.CreatedAt.ToString("MMM d, yyyy")</h5>
+                            <p>@comment.commentContent</p>
+
+                        </div>
+                    }
+                    <div class="message">
+                        <form asp-action="CreateComment" asp-route-MessageId=@message.MessageId asp-controller="Home" method="POST">
+                            <span asp-validation-for="Comment.commentContent"></span>
+                            <label asp-for="Comment.commentContent">Add comment</label>
+                            <textarea asp-for="Comment.commentContent"></textarea>
+                            <input type="submit" value="Post">
+                        </form>
+                    </div>
+                }
+            }
+        </div>
+    </body>
+</html>

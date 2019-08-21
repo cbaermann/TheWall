@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="~/css/style.css">
+        <title>Index Page</title>
+    </head>
+
+    <body>
+        @model LoginViewModel
+        <div class="container">
+
+            <h1>Register</h1>
+            <div class="register">
+                <form asp-action="CreateUser" asp-controller="Home" method="POST">
+                    <span asp-validation-for="newUser.FirstName"></span>
+                    <label asp-for="newUser.FirstName">First Name: </label>
+                    <input type="text" asp-for="newUser.FirstName">
+                    <br>
+                    <span asp-validation-for="newUser.LastName"></span>
+                    <label asp-for="newUser.LastName">Last Name: </label>
+                    <input type="text" asp-for="newUser.LastName">
+                    <br>
+                    <span asp-validation-for="newUser.Email"></span>
+                    <label asp-for="newUser.Email">Email: </label>
+                    <input type="text" asp-for="newUser.Email">
+                    <br>
+                    <span asp-validation-for="newUser.Password"></span>
+                    <label asp-for="newUser.Password">Password: </label>
+                    <input type="password" asp-for="newUser.Password">
+                    <br>
+                    <span asp-validation-for="newUser.ConfirmPassword"></span>
+                    <label asp-for="newUser.ConfirmPassword">Confirm Password: </label>
+                    <input type="password" asp-for="newUser.ConfirmPassword">
+                    <br>
+                    <input type="submit" value="Register">
+                </form>
+            </div>
+            <h1>Login</h1>
+            <div class="login">
+                <form asp-action="LoginUser" asp-controller="Home" method="POST">
+                    <span asp-validation-for="newLogin.loginEmail"></span>
+                    <label asp-for="newLogin.loginEmail">Email: </label>
+                    <input type="text" asp-for="newLogin.loginEmail">
+                    <br>
+        
+                    <span asp-validation-for="newLogin.loginPassword"></span>
+                    <label asp-for="newLogin.loginPassword">Password: </label>
+                    <input type="password" asp-for="newLogin.loginPassword">
+                    <br>
+                    <input type="submit" value="Sign up">
+                </form>
+            </div>
+        </div>   
+    </body>
+</html>
+
